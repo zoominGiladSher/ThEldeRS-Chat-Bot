@@ -10,7 +10,8 @@ export enum ALLOWED_COMMANDS {
   CHEER_UP = 'cheerup',
   JAM = 'jam',
   HELP = 'help',
-  PYRAMID = 'pyramid'
+  PYRAMID = 'pyramid',
+  EMOTE = 'emote'
 };
 
 export enum TWITCH_EMOTES {
@@ -29,7 +30,7 @@ export interface ICommandObject<T> {
     ? typeof handleCheerup
     : T extends ALLOWED_COMMANDS.HELP
     ? typeof handleHelpCommand
-    : T extends ALLOWED_COMMANDS.JAM | ALLOWED_COMMANDS.KISS
+    : T extends ALLOWED_COMMANDS.JAM | ALLOWED_COMMANDS.KISS | ALLOWED_COMMANDS.EMOTE
     ? typeof handleEmoteOnlyMessage
     : T extends ALLOWED_COMMANDS.PYRAMID
     ? typeof handlePyramid

@@ -34,5 +34,11 @@ export const COMMANDS: CommandsObject = {
   [ALLOWED_COMMANDS.PYRAMID]: {
     helpText: `Build a mighty pyramid of emotes! First parameter is the emote, second parameter is the base(amount of "steps") of the pyramid.`,
     handler: handlePyramid
+  },
+  [ALLOWED_COMMANDS.EMOTE]: {
+    helpText: `Send any emote (that the bot user actually has). ${MULTIPLIER_HELP_TEXT}`,
+    handler: handleEmoteOnlyMessage
   }
 };
+
+export const IGNORE_REGEX = /^\W/;

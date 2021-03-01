@@ -1,11 +1,11 @@
-import { SPACE } from '../constants';
 import {
   appendUserTagToMessage,
   findUserTaggingInMessage,
   hasArgs,
-  hasEmoteMultiplier,
+  findEmoteMultiplier,
   removeUserTaggingFromMessage,
-  repeatEmote
+  repeatEmote,
+  limitMultiplier
 } from '../utils';
 
 export function handleEmoteOnlyMessage(emote: string, args?: string[]) {
@@ -16,12 +16,11 @@ export function handleEmoteOnlyMessage(emote: string, args?: string[]) {
       args = removeUserTaggingFromMessage(args!);
     }
 
-    if (hasEmoteMultiplier(args!)) {
-      const multiplier = args![0];
-      message = repeatEmote(message, parseInt(multiplier!));
-    }
-    else {
-      message = `${message} ${args!.join(SPACE)}`;
+    let multiplier: string | number | undefined = findEmoteMultiplier(args!);
+    if (multiplier) {
+      multiplier = parseInt(multiplier);
+      multiplier = limitMultiplier(multiplier, 25);
+      message = repeatEmote(message, multiplier);
     }
 
     if (userTag) {

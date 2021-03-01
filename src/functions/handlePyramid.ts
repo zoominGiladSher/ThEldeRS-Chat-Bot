@@ -1,4 +1,4 @@
-import { hasArgs, repeatEmote } from '../utils';
+import { hasArgs, limitMultiplier, repeatEmote } from '../utils';
 import client from '../index';
 
 export async function handlePyramid(channel: string, args?: string[]) {
@@ -6,7 +6,8 @@ export async function handlePyramid(channel: string, args?: string[]) {
     return;
   }
   const emote = `${args![0]} `;
-  const pyramidBase = parseInt(args![1]!) || 3;
+  let pyramidBase = parseInt(args![1]!) || 3;
+  pyramidBase = limitMultiplier(pyramidBase, 5);
   const pyramidWidth = pyramidBase * 2;
   for (let i = 1; i < pyramidWidth; i++) {
     if (i === 1) {

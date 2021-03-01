@@ -1,7 +1,7 @@
-import { SPACE, TWITCH_USER_TAG } from './constants';
+import { IGNORE_REGEX, SPACE, TWITCH_USER_TAG } from './constants';
 
-export function hasEmoteMultiplier(args: string[]) {
-  return typeof parseInt(args[0]!) === 'number';
+export function findEmoteMultiplier(args: string[]) {
+  return args.find(arg => parseInt(arg));
 }
 
 export function hasArgs(args?: string[]) {
@@ -22,4 +22,12 @@ export function removeUserTaggingFromMessage(args: string[]) {
 
 export function appendUserTagToMessage(message: string, userTag: string) {
   return message + SPACE + userTag;
+}
+
+export function limitMultiplier(current: number, limit: number) {
+  return (current > limit) ? limit : current;
+}
+
+export function stripCommandsFromMessage(args: string[]) {
+  return args.filter(arg => !arg.match(IGNORE_REGEX));
 }

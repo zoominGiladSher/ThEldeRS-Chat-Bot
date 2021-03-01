@@ -12,6 +12,7 @@ import {
   NO_HELP_TEXT,
   SPACE
 } from '../constants';
+import { hasArgs, stripCommandsFromMessage } from '../utils';
 
 export const handleMessage: FunctionHandler<void> = (
   channel,
@@ -19,21 +20,25 @@ export const handleMessage: FunctionHandler<void> = (
   message,
   self
 ) => {
-  if (!message.toLowerCase().startsWith(BOT_PREFIX) || message.length === 1) {
+  if ((!message.toLowerCase().startsWith(BOT_PREFIX) || message.length === 1) && !(tags.mod || self)) {
     return;
   }
   const messageContent = message.substr(BOT_PREFIX_LENGTH);
-  const [command, ...args] = messageContent.split(SPACE);
+  let [command, ...args] = messageContent.split(SPACE);
+  args = stripCommandsFromMessage(args);
   let emote = '';
+  let messageToSend = null;
   switch (command) {
     case ALLOWED_COMMANDS.KISS:
     case ALLOWED_COMMANDS.JAM:
       emote = `${COMMANDS[command].emote} `;
-      client.say(channel, COMMANDS[command].handler(emote, args));
+      messageToSend = COMMANDS[command].handler(emote, args);
+      handleEmptyMessage(channel, messageToSend);
       break;
     case ALLOWED_COMMANDS.CHEER_UP:
       emote = `${COMMANDS[command].emote} `;
-      client.say(channel, COMMANDS[command].handler(emote));
+      messageToSend = COMMANDS[command].handler(emote);
+      handleEmptyMessage(channel, messageToSend);
       break;
     case ALLOWED_COMMANDS.HELP:
       const helpText = COMMANDS[command].handler(args);
@@ -44,7 +49,22 @@ export const handleMessage: FunctionHandler<void> = (
     case ALLOWED_COMMANDS.PYRAMID:
       COMMANDS[command].handler(channel, args);
       break;
+    case ALLOWED_COMMANDS.EMOTE:
+      if (!hasArgs(args)) {
+        break;
+      }
+      emote = `${args[0]!} `;
+      messageToSend = COMMANDS[command].handler(emote, args);
+      handleEmptyMessage(channel, messageToSend);
+      break;
     default:
       break;
   }
 };
+
+const handleEmptyMessage = (channel: string, message?: string) => {
+  if (!message) {
+    return;
+  }
+  client.say(channel, message);
+}
