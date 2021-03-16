@@ -4,6 +4,10 @@ export function findEmoteMultiplier(args: string[]) {
   return args.find(arg => parseInt(arg));
 }
 
+export function removeEmoteMultiplier(message: string) {
+  return message.split(SPACE).filter(part => !parseInt(part)).join(SPACE);
+}
+
 export function hasArgs(args?: string[]) {
   return args?.length !== 0;
 }

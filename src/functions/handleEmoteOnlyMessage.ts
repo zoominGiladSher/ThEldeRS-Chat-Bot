@@ -1,3 +1,4 @@
+import { EMOTE_LIMIT } from '../constants';
 import {
   appendUserTagToMessage,
   findUserTaggingInMessage,
@@ -5,7 +6,8 @@ import {
   findEmoteMultiplier,
   removeUserTaggingFromMessage,
   repeatEmote,
-  limitMultiplier
+  limitMultiplier,
+  removeEmoteMultiplier
 } from '../utils';
 
 export function handleEmoteOnlyMessage(emote: string, args?: string[]) {
@@ -18,9 +20,10 @@ export function handleEmoteOnlyMessage(emote: string, args?: string[]) {
 
     let multiplier: string | number | undefined = findEmoteMultiplier(args!);
     if (multiplier) {
-      multiplier = parseInt(multiplier);
-      multiplier = limitMultiplier(multiplier, 25);
+      multiplier = Math.abs(parseInt(multiplier));
+      multiplier = limitMultiplier(multiplier, EMOTE_LIMIT);
       message = repeatEmote(message, multiplier);
+      message = removeEmoteMultiplier(message);
     }
 
     if (userTag) {

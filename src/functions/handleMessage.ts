@@ -20,7 +20,7 @@ export const handleMessage: FunctionHandler<void> = (
   message,
   self
 ) => {
-  if ((!message.toLowerCase().startsWith(BOT_PREFIX) || message.length === 1) && !(tags.mod || self)) {
+  if (!(tags.mod || self) || (!message.toLowerCase().startsWith(BOT_PREFIX) || message.length === 1)) {
     return;
   }
   const messageContent = message.substr(BOT_PREFIX_LENGTH);
@@ -53,7 +53,7 @@ export const handleMessage: FunctionHandler<void> = (
       if (!hasArgs(args)) {
         break;
       }
-      emote = `${args[0]!} `;
+      emote = `${args?.join(SPACE)} `;
       messageToSend = COMMANDS[command].handler(emote, args);
       handleEmptyMessage(channel, messageToSend);
       break;

@@ -17,7 +17,7 @@ const client = new Client(options);
 
 (async () => {
   await client.connect();
-  console.log(`Connected to channels: ${options.channels?.join(SPACE)}`)
+  console.log(`Connected to channels: ${options.channels?.join(SPACE)}`);
   client.on('message', handleMessage);
 })();
 

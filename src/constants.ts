@@ -10,6 +10,9 @@ export const BOT_PREFIX_LENGTH = BOT_PREFIX.length;
 export const SPACE = ' ';
 export const MULTIPLIER_HELP_TEXT = 'You can add a multiplier separated by a space.';
 export const NO_HELP_TEXT = `Whoops! Seems like that command doesn't exist! Try to use ${BOT_PREFIX}${ALLOWED_COMMANDS.HELP} for extra information!`;
+export const EMOTE_LIMIT = 25;
+export const PYRAMID_BASE_LIMIT = 5;
+export const DEFAULT_PYRAMID_BASE = 3;
 
 export const COMMANDS: CommandsObject = {
   [ALLOWED_COMMANDS.CHEER_UP]: {
