@@ -1,7 +1,9 @@
 import { handleCheerup } from './functions/handleCheerup';
 import { handleEmoteOnlyMessage } from './functions/handleEmoteOnlyMessage';
 import { handleHelpCommand } from './functions/handleHelpCommand';
+import { handleLeaderboard } from './functions/handleLeaderboard';
 import { handlePyramid } from './functions/handlePyramid';
+import { handleSpeedrunSearch } from './functions/handleSpeedrunSearch';
 import { ALLOWED_COMMANDS, CommandsObject, NIXXO_EMOTES, TWITCH_EMOTES } from './types';
 
 export const TWITCH_USER_TAG = '@';
@@ -41,7 +43,23 @@ export const COMMANDS: CommandsObject = {
   [ALLOWED_COMMANDS.EMOTE]: {
     helpText: `Send any emote (that the bot user actually has). ${MULTIPLIER_HELP_TEXT}`,
     handler: handleEmoteOnlyMessage
+  },
+  [ALLOWED_COMMANDS.SEARCH_GAME]: {
+    helpText: 'Search for a game in speedrun.com, you get a list of possible games to get the results for.',
+    handler: handleSpeedrunSearch
+  },
+  [ALLOWED_COMMANDS.LEADERBOARD]: {
+    helpText: 'Get a list of the top 10 results for a specific game',
+    handler: handleLeaderboard
+  },
+  [ALLOWED_COMMANDS.WORLD_RECORD]: {
+    helpText: 'Get a list of the top 10 results for a specific game',
+    handler: handleLeaderboard
   }
 };
 
+export const PROXY_SEARCH_ROUTE = 'search';
+export const PROXY_LEADERBOARD_ROUTE = 'get-leaderboard';
 export const IGNORE_REGEX = /^\W/;
+export const SPEEDRUN_BASE_URL = 'https://www.speedrun.com';
+export const PROXY_URL = 'http://localhost';

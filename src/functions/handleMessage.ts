@@ -14,13 +14,13 @@ import {
 } from '../constants';
 import { hasArgs, stripCommandsFromMessage } from '../utils';
 
-export const handleMessage: FunctionHandler<void> = (
+export const handleMessage: FunctionHandler<void> = async (
   channel,
   tags,
   message,
   self
 ) => {
-  if (!(tags.mod || self) || (!message.toLowerCase().startsWith(BOT_PREFIX) || message.length === 1)) {
+  if (!(tags.mod || self || tags.username === 'nixxo') || (!message.toLowerCase().startsWith(BOT_PREFIX) || message.length === 1)) {
     return;
   }
   const messageContent = message.substr(BOT_PREFIX_LENGTH);
@@ -55,6 +55,15 @@ export const handleMessage: FunctionHandler<void> = (
       }
       emote = `${args?.join(SPACE)} `;
       messageToSend = COMMANDS[command].handler(emote, args);
+      handleEmptyMessage(channel, messageToSend);
+      break;
+    case ALLOWED_COMMANDS.SEARCH_GAME:
+      messageToSend = await COMMANDS[command].handler(args);
+      handleEmptyMessage(channel, messageToSend);
+      break;
+    case ALLOWED_COMMANDS.LEADERBOARD:
+    case ALLOWED_COMMANDS.WORLD_RECORD:
+      messageToSend = await COMMANDS[command].handler(args);
       handleEmptyMessage(channel, messageToSend);
       break;
     default:
