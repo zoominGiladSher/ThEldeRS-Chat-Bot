@@ -17,7 +17,7 @@ app.get(`/${PROXY_SEARCH_ROUTE}`, searchSpeedrun);
 app.get(`/${PROXY_LEADERBOARD_ROUTE}`, getSpeedrunsCategories);
 
 const options: Options = {
-  channels: ['nixxo'],
+  channels: [process.env.CHANNEL_NAME!],
   connection: { reconnect: true },
   identity: {
     username: process.env.USER_NAME,

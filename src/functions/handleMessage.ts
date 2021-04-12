@@ -20,7 +20,7 @@ export const handleMessage: FunctionHandler<void> = async (
   message,
   self
 ) => {
-  if (!(tags.mod || self || tags.username === 'nixxo') || (!message.toLowerCase().startsWith(BOT_PREFIX) || message.length === 1)) {
+  if (!(tags.mod || self || tags.username === process.env.CHANNEL_HOST_NAME) || (!message.toLowerCase().startsWith(BOT_PREFIX) || message.length === 1)) {
     return;
   }
   const messageContent = message.substr(BOT_PREFIX_LENGTH);
