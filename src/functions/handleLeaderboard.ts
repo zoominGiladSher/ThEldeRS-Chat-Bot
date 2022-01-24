@@ -42,7 +42,7 @@ export async function handleLeaderboard(args?: string[]) {
 	} catch (error) {
 		return (
 			'Error occurred while fetching results from speedrun.com: ' +
-			error.message
+			error
 		);
 	}
 }

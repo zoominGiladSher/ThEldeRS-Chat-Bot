@@ -2,7 +2,7 @@
   "name": "ThEldeRS-Chat-Bot",
   "version": "1.0.0",
   "description": "A Twitch chat bot for fun and pleasure",
-  "main": "index.ts",
+  "main": "src/index.ts",
   "scripts": {
     "start": "ts-node ./src/index.ts"
   },
@@ -14,19 +14,19 @@
   "author": "Gilad Sher",
   "license": "MIT",
   "devDependencies": {
-    "@types/cors": "^2.8.10",
-    "@types/express": "^4.17.11",
-    "@types/node": "^14.14.31",
-    "@types/tmi.js": "^1.7.1",
-    "ts-node": "^9.1.1",
-    "typescript": "^4.2.2"
+    "@types/cors": "^2.8.12",
+    "@types/express": "^4.17.13",
+    "@types/node": "^17.0.10",
+    "@types/tmi.js": "^1.8.1",
+    "ts-node": "^10.4.0",
+    "typescript": "^4.5.5"
   },
   "dependencies": {
-    "axios": "^0.21.1",
-    "cheerio": "^1.0.0-rc.6",
+    "axios": "^0.25.0",
+    "cheerio": "^1.0.0-rc.10",
     "cors": "^2.8.5",
-    "dotenv": "^8.2.0",
-    "express": "^4.17.1",
-    "tmi.js": "^1.7.2"
+    "dotenv": "^14.2.0",
+    "express": "^4.17.2",
+    "tmi.js": "^1.8.5"
   }
 }

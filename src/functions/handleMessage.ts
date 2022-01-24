@@ -27,7 +27,7 @@ export const handleMessage: FunctionHandler<void> = async (
   let [command, ...args] = messageContent.split(SPACE);
   args = stripCommandsFromMessage(args);
   let emote = '';
-  let messageToSend = null;
+  let messageToSend: string | null | undefined = null;
   switch (command) {
     case ALLOWED_COMMANDS.KISS:
     case ALLOWED_COMMANDS.JAM:
@@ -67,13 +67,32 @@ export const handleMessage: FunctionHandler<void> = async (
       handleEmptyMessage(channel, messageToSend);
       break;
     default:
+      // const asyncIterable = {
+      //   [Symbol.asyncIterator]() {
+      //     return {
+      //       i: 0,
+      //       next() {
+      //         if (this.i < 100) {
+      //           this.i++;
+      //           return Promise.resolve({ value: handleEmptyMessage(channel, '#teamCapitalism'), done: false });
+      //         }
+      
+      //         return Promise.resolve({ value: null, done: true });
+      //       }
+      //     };
+      //   }
+      // };
+      // for await (const _ of asyncIterable) {
+      //   console.log(_);
+      // }
       break;
   }
 };
 
-const handleEmptyMessage = (channel: string, message?: string) => {
+const handleEmptyMessage = async (channel: string, message?: string) => {
   if (!message) {
     return;
   }
-  client.say(channel, message);
+  await client.say(channel, message);
+  return `Channel: ${channel}, message: ${message}`;
 }

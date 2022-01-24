@@ -22,6 +22,6 @@ export async function handleSpeedrunSearch(args?: string[]) {
     const mappedResults = searchResults.map(result => `${result.url}`).join(', ');
     return `Possible games: ${mappedResults}.`;
   } catch (error) {
-    return 'Error occurred while fetching results from speedrun.com: ' + error.message;
+    return 'Error occurred while fetching results from speedrun.com: ' + error;
   }
 }
